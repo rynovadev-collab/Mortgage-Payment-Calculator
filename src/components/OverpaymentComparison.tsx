@@ -25,13 +25,14 @@ const OverpaymentComparison = ({
     mortgageAmount,
     currentRate,
     remainingTermYears,
+    remainingTermMonths,
     monthlyPayment,
     overpaymentAmount,
   } = mortgageData;
 
   const termMonths = Math.max(
     1,
-    Math.round(remainingTermYears * 12)
+    remainingTermYears * 12 + remainingTermMonths
   );
 
   const standard = calculateMortgageScenario({
@@ -185,8 +186,8 @@ const OverpaymentComparison = ({
                       <td className="px-4 py-4 text-right">
                         {row.monthsSaved > 0
                           ? formatMortgageDuration(
-                              row.monthsSaved
-                            )
+                            row.monthsSaved
+                          )
                           : "—"}
                       </td>
 
@@ -199,8 +200,8 @@ const OverpaymentComparison = ({
                       <td className="py-4 pl-4 text-right font-semibold text-primary">
                         {row.interestSaved > 0
                           ? formatCurrency(
-                              row.interestSaved
-                            )
+                            row.interestSaved
+                          )
                           : "—"}
                       </td>
                     </tr>

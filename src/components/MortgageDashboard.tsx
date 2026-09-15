@@ -28,29 +28,41 @@ const MortgageDashboard = () => {
   const [mortgageAmount, setMortgageAmount] = useState(250000);
   const [currentRate, setCurrentRate] = useState(4);
   const [remainingTermYears, setRemainingTermYears] = useState(40);
+  const [remainingTermMonths, setRemainingTermMonths] = useState(0);
+  const [productFee, setProductFee] = useState(0);
+  const [addProductFeeToMortgage, setAddProductFeeToMortgage] = useState(false);
   const [overpaymentAmount, setOverpaymentAmount] = useState(0);
   const [lumpSumAmount, setLumpSumAmount] = useState(0);
+
+  const effectiveMortgageAmount =
+    mortgageAmount +
+    (addProductFeeToMortgage ? productFee : 0);
 
   const loanTermMonths = Math.min(
     600,
     Math.max(
       1,
-      Math.round(remainingTermYears * 12)
+      remainingTermYears * 12 + remainingTermMonths
     )
   );
 
   const monthlyPayment = useMemo(() => {
     return calculateRequiredMonthlyPayment(
-      mortgageAmount,
+      effectiveMortgageAmount,
       currentRate,
       loanTermMonths
     );
-  }, [mortgageAmount, currentRate, loanTermMonths]);
+  }, [
+    effectiveMortgageAmount,
+    currentRate,
+    loanTermMonths,
+  ]);
 
   const mortgageData: UserMortgageData = {
-    mortgageAmount,
+    mortgageAmount: effectiveMortgageAmount,
     currentRate,
     remainingTermYears,
+    remainingTermMonths,
     monthlyPayment,
     overpaymentAmount,
     lumpSumAmount,
@@ -84,7 +96,7 @@ const MortgageDashboard = () => {
           variant="secondary"
           className="w-fit px-4 py-2 text-sm md:text-base"
         >
-          {remainingTermYears} years remaining
+          {remainingTermYears}y {remainingTermMonths}m remaining
         </Badge>
       </div>
 
@@ -141,29 +153,103 @@ const MortgageDashboard = () => {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="remainingTerm">
-                Remaining Mortgage Term (Years)
+              <Label>Remaining Mortgage Term</Label>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div>
+                  <Label
+                    htmlFor="remainingTermYears"
+                    className="mb-1 block text-xs text-muted-foreground"
+                  >
+                    Years
+                  </Label>
+
+                  <Input
+                    id="remainingTermYears"
+                    type="number"
+                    min="0"
+                    max="50"
+                    step="1"
+                    value={remainingTermYears}
+                    onChange={(e) =>
+                      setRemainingTermYears(
+                        Math.min(
+                          50,
+                          Math.max(0, Number(e.target.value) || 0)
+                        )
+                      )
+                    }
+                  />
+                </div>
+
+                <div>
+                  <Label
+                    htmlFor="remainingTermMonths"
+                    className="mb-1 block text-xs text-muted-foreground"
+                  >
+                    Months
+                  </Label>
+
+                  <Input
+                    id="remainingTermMonths"
+                    type="number"
+                    min="0"
+                    max="11"
+                    step="1"
+                    value={remainingTermMonths}
+                    onChange={(e) =>
+                      setRemainingTermMonths(
+                        Math.min(
+                          11,
+                          Math.max(0, Number(e.target.value) || 0)
+                        )
+                      )
+                    }
+                  />
+                </div>
+              </div>
+
+              <p className="text-xs text-muted-foreground">
+                Enter the remaining term of your mortgage in years and months.
+              </p>
+            </div>
+
+            <div className="grid gap-2">
+              <Label htmlFor="productFee">
+                Mortgage Product Fee (£)
               </Label>
 
               <Input
-                id="remainingTerm"
+                id="productFee"
                 type="number"
-                min="1"
-                max="50"
-                step="1"
-                value={remainingTermYears}
+                min="0"
+                step="100"
+                value={productFee}
                 onChange={(e) =>
-                  setRemainingTermYears(
-                    Math.min(
-                      50,
-                      Math.max(
-                        1,
-                        Number(e.target.value) || 1
-                      )
-                    )
+                  setProductFee(
+                    Math.max(0, Number(e.target.value) || 0)
                   )
                 }
               />
+
+              <p className="text-xs text-muted-foreground">
+                Enter any arrangement, booking or product fee associated with your mortgage.
+              </p>
+
+              {productFee > 0 && (
+                <label className="mt-1 flex cursor-pointer items-center gap-2 text-sm">
+                  <input
+                    type="checkbox"
+                    checked={addProductFeeToMortgage}
+                    onChange={(e) =>
+                      setAddProductFeeToMortgage(e.target.checked)
+                    }
+                    className="h-4 w-4"
+                  />
+
+                  <span>Add product fee to mortgage balance</span>
+                </label>
+              )}
             </div>
 
             <div className="rounded-xl bg-muted p-4">
@@ -354,7 +440,7 @@ const MortgageDashboard = () => {
       {/* Full payment schedule */}
       <PaymentTable
         mortgageData={{
-          mortgageAmount,
+          mortgageAmount: effectiveMortgageAmount,
           currentRate,
           monthlyPayment,
           loanTermMonths,

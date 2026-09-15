@@ -31,6 +31,7 @@ const MortgageSummary = ({ mortgageData }: MortgageSummaryProps) => {
             mortgageAmount,
             currentRate,
             remainingTermYears,
+            remainingTermMonths,
             monthlyPayment,
             overpaymentAmount,
             lumpSumAmount,
@@ -38,7 +39,7 @@ const MortgageSummary = ({ mortgageData }: MortgageSummaryProps) => {
 
         const termMonths = Math.max(
             1,
-            Math.round(remainingTermYears * 12)
+            remainingTermYears * 12 + remainingTermMonths
         );
 
         const standard = calculateMortgageScenario({

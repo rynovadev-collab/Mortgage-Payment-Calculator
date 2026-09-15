@@ -29,115 +29,116 @@ export const MortgageChart = ({
   mortgageData,
 }: MortgageChartProps) => {
   const chartData = useMemo(() => {
-  const {
-    mortgageAmount,
-    currentRate,
-    remainingTermYears,
-    monthlyPayment,
-    overpaymentAmount,
-    lumpSumAmount,
-  } = mortgageData;
+    const {
+      mortgageAmount,
+      currentRate,
+      remainingTermYears,
+      remainingTermMonths,
+      monthlyPayment,
+      overpaymentAmount,
+      lumpSumAmount,
+    } = mortgageData;
 
-  if (
-    mortgageAmount <= 0 ||
-    monthlyPayment <= 0 ||
-    currentRate < 0
-  ) {
-    return {
-      data: [],
-      scenarios: [],
-    };
-  }
+    if (
+      mortgageAmount <= 0 ||
+      monthlyPayment <= 0 ||
+      currentRate < 0
+    ) {
+      return {
+        data: [],
+        scenarios: [],
+      };
+    }
 
-  const termMonths = Math.max(
-    1,
-    Math.round(remainingTermYears * 12)
-  );
+    const termMonths = Math.max(
+      1,
+      remainingTermYears * 12 + remainingTermMonths
+    );
 
-  const scenarioAmounts = Array.from(
-    new Set([
-      0,
-      100,
-      200,
-      500,
-      Math.max(0, overpaymentAmount || 0),
-    ])
-  ).sort((a, b) => a - b);
+    const scenarioAmounts = Array.from(
+      new Set([
+        0,
+        100,
+        200,
+        500,
+        Math.max(0, overpaymentAmount || 0),
+      ])
+    ).sort((a, b) => a - b);
 
-  const scenarioResults = scenarioAmounts.map((amount) => {
-    const isSelected =
-      amount === Math.max(0, overpaymentAmount || 0);
+    const scenarioResults = scenarioAmounts.map((amount) => {
+      const isSelected =
+        amount === Math.max(0, overpaymentAmount || 0);
 
-    return {
-      amount,
-      result: calculateMortgageScenario({
-        mortgageAmount,
-        annualRate: currentRate,
-        termMonths,
-        monthlyPayment,
-        monthlyOverpayment: amount,
-        lumpSum: isSelected
-          ? lumpSumAmount || 0
-          : 0,
-      }),
-    };
-  });
-
-  const longestScenario = Math.max(
-    ...scenarioResults.map(
-      ({ result }) => result.schedule.length
-    ),
-    0
-  );
-
-  const rows: Record<
-    string,
-    number | string | null
-  >[] = [];
-
-  for (
-    let month = 0;
-    month <= longestScenario;
-    month++
-  ) {
-    const date = new Date();
-    date.setMonth(date.getMonth() + month);
-
-    const row: Record<
-      string,
-      number | string | null
-    > = {
-      month,
-      date: date.toLocaleDateString("en-GB", {
-        month: "short",
-        year: "numeric",
-      }),
-    };
-
-    scenarioResults.forEach(({ amount, result }) => {
-      if (month === 0) {
-        row[`overpayment_${amount}`] =
-          result.startingBalance;
-        return;
-      }
-
-      const scheduleRow =
-        result.schedule[month - 1];
-
-      row[`overpayment_${amount}`] =
-        scheduleRow
-          ? scheduleRow.balance
-          : null;
+      return {
+        amount,
+        result: calculateMortgageScenario({
+          mortgageAmount,
+          annualRate: currentRate,
+          termMonths,
+          monthlyPayment,
+          monthlyOverpayment: amount,
+          lumpSum: isSelected
+            ? lumpSumAmount || 0
+            : 0,
+        }),
+      };
     });
 
-    rows.push(row);
-  }
+    const longestScenario = Math.max(
+      ...scenarioResults.map(
+        ({ result }) => result.schedule.length
+      ),
+      0
+    );
 
-  return {
-    data: rows,
-    scenarios: scenarioAmounts,
-  };
-}, [mortgageData]);
+    const rows: Record<
+      string,
+      number | string | null
+    >[] = [];
+
+    for (
+      let month = 0;
+      month <= longestScenario;
+      month++
+    ) {
+      const date = new Date();
+      date.setMonth(date.getMonth() + month);
+
+      const row: Record<
+        string,
+        number | string | null
+      > = {
+        month,
+        date: date.toLocaleDateString("en-GB", {
+          month: "short",
+          year: "numeric",
+        }),
+      };
+
+      scenarioResults.forEach(({ amount, result }) => {
+        if (month === 0) {
+          row[`overpayment_${amount}`] =
+            result.startingBalance;
+          return;
+        }
+
+        const scheduleRow =
+          result.schedule[month - 1];
+
+        row[`overpayment_${amount}`] =
+          scheduleRow
+            ? scheduleRow.balance
+            : null;
+      });
+
+      rows.push(row);
+    }
+
+    return {
+      data: rows,
+      scenarios: scenarioAmounts,
+    };
+  }, [mortgageData]);
 
   const formatCurrency = (value: number) =>
     new Intl.NumberFormat("en-GB", {

@@ -33,6 +33,7 @@ export const InterestPrincipalChart = ({
       mortgageAmount,
       currentRate,
       remainingTermYears,
+      remainingTermMonths,
       monthlyPayment,
       overpaymentAmount,
       lumpSumAmount,
@@ -51,7 +52,7 @@ export const InterestPrincipalChart = ({
       annualRate: currentRate,
       termMonths: Math.max(
         1,
-        Math.round(remainingTermYears * 12)
+        remainingTermYears * 12 + remainingTermMonths
       ),
       monthlyPayment,
       monthlyOverpayment: overpaymentAmount || 0,
