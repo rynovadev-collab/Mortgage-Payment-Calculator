@@ -1,20 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
-  <!-- AmortIQ Mortgage Overpayment Calculator -->
   <url>
-    <loc>https://amortiq-calculator-mortgage-overpay.vercel.app/</loc>
-    <lastmod>2026-09-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1.0</priority>
+    <loc>https://mortgage-payment-calculator-kohl.vercel.app/</loc>
   </url>
-
-  <!-- Beginner's Guide to Mortgage Overpayments -->
   <url>
-    <loc>https://amortiq-calculator-mortgage-overpay.vercel.app/guides/mortgage-overpayment-beginners-guide</loc>
-    <lastmod>2026-09-15</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
+    <loc>https://mortgage-payment-calculator-kohl.vercel.app/guides/mortgage-overpayment-beginners-guide</loc>
   </url>
-
 </urlset>

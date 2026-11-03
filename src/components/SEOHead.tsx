@@ -17,7 +17,10 @@ const SEOHead = ({
   ogImage = "/og-image.jpg"
 }: SEOHeadProps) => {
   const location = useLocation();
-  const fullUrl = canonical || `${window.location.origin}${location.pathname}`;
+  const siteUrl = "https://mortgage-payment-calculator-kohl.vercel.app";
+
+const fullUrl =
+  canonical || `${siteUrl}${location.pathname}`;
 
   useEffect(() => {
     // Update document title
