@@ -1,11 +1,11 @@
 import { Calculator } from "lucide-react";
-import { Link } from "react-router-dom";
+import Link from "next/link";
 
 const SiteHeader = () => {
   return (
     <header className="border-b bg-background">
       <div className="container mx-auto flex items-center justify-between px-4 py-4">
-        <Link to="/" className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-primary text-primary-foreground">
             <Calculator className="h-5 w-5" />
           </div>
@@ -16,14 +16,14 @@ const SiteHeader = () => {
             </p>
 
             <p className="mt-1 text-xs text-muted-foreground">
-              Mortgage Overpayment Calculator
+              Mortgage Payment Calculator
             </p>
           </div>
         </Link>
 
         <nav className="flex items-center gap-4">
           <Link
-            to="/guides/mortgage-overpayment-beginners-guide"
+            href="/guides/mortgage-overpayment-beginners-guide"
             className="text-sm font-semibold text-slate-800 transition-colors hover:text-primary"
           >
             Mortgage Guide

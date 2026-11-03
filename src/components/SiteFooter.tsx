@@ -11,7 +11,7 @@ const SiteFooter = () => {
             </p>
 
             <p className="mt-2 max-w-lg text-sm leading-6 text-muted-foreground">
-              A free UK mortgage overpayment calculator for estimating
+              A free UK mortgage payment and overpayment calculator for estimating
               how regular overpayments and lump-sum payments could affect
               your mortgage term and interest costs.
             </p>
@@ -30,7 +30,7 @@ const SiteFooter = () => {
         </div>
 
         <div className="mt-6 border-t pt-6 text-sm text-muted-foreground">
-          © {currentYear} AmortIQ. All rights reserved.
+          © {currentYear} AmortIQ. All rights reserved. <span className="block mt-2">Developed and operated by <a className="underline" href="https://rynovadev.co.uk">RynovaDev</a>.</span><div className="mt-3 flex flex-wrap gap-4"><a href="/about">About</a><a href="/contact">Contact</a><a href="/privacy">Privacy</a><a href="/terms">Terms</a></div>
         </div>
       </div>
     </footer>
