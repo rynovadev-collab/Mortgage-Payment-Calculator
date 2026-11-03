@@ -10,15 +10,11 @@ const MortgageSeoContent = () => {
     <section className="space-y-6 pt-4">
       <div className="space-y-2">
         <h2 className="text-2xl font-bold tracking-tight md:text-3xl">
-          How Mortgage Overpayments Can Affect Your Mortgage
+          How to Calculate Your Monthly Mortgage Payments
         </h2>
 
         <p className="max-w-4xl text-muted-foreground">
-          Making extra payments towards a repayment mortgage can reduce
-          the outstanding balance more quickly. Because future interest
-          is calculated on a smaller balance, overpayments may reduce
-          the total interest you pay and help you repay your mortgage
-          sooner.
+          Your estimated monthly repayment depends on your mortgage balance, annual interest rate and remaining term. Enter these details in the calculator above to see a standard capital-and-interest repayment estimate. A longer term usually lowers monthly payments but increases total interest. You can also compare how extra payments may reduce interest and shorten the repayment period.
         </p>
       </div>
 

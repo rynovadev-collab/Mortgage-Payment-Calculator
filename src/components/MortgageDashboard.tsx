@@ -82,13 +82,11 @@ const MortgageDashboard = () => {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight md:text-4xl">
-            Mortgage Overpayment Calculator
+            Mortgage Payment Calculator UK
           </h1>
 
           <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">
-            See how mortgage overpayments could reduce your interest,
-            shorten your mortgage term and bring your mortgage-free date
-            forward.
+            Calculate your estimated monthly mortgage repayments, total interest and repayment schedule. Then explore how regular or lump-sum overpayments could reduce your mortgage costs.
           </p>
         </div>
 
@@ -254,7 +252,7 @@ const MortgageDashboard = () => {
 
             <div className="rounded-xl bg-muted p-4">
               <p className="text-sm text-muted-foreground">
-                Calculated standard monthly payment
+                Estimated monthly mortgage payment
               </p>
 
               <p className="mt-1 text-3xl font-bold">

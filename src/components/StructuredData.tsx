@@ -20,7 +20,7 @@ const StructuredData = ({ breadcrumbs, pageType = 'WebPage', headline }: Structu
     const existingScripts = document.querySelectorAll('script[data-structured-data="page"]');
     existingScripts.forEach(script => script.remove());
 
-    const currentUrl = `https://amortiq.co.uk${location.pathname}`;
+    const currentUrl = `${window.location.origin}${location.pathname}`;
 
     // Create breadcrumb structured data if breadcrumbs are provided
     if (breadcrumbs && breadcrumbs.length > 0) {
@@ -50,7 +50,7 @@ const StructuredData = ({ breadcrumbs, pageType = 'WebPage', headline }: Structu
       "name": headline || document.title,
       "isPartOf": {
         "@type": "WebSite",
-        "url": "https://amortiq.co.uk"
+        "url": window.location.origin
       }
     };
 

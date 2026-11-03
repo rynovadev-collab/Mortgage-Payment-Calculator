@@ -10,14 +10,14 @@ interface SEOHeadProps {
 }
 
 const SEOHead = ({ 
-  title = "AmortIQ - Smart Mortgage Calculator & Tracker",
-  description = "Free mortgage calculator and overpayment tracker helping UK homeowners save thousands on interest payments. See your potential savings today.",
-  keywords = "mortgage calculator, overpayment calculator, mortgage tracker, UK mortgage",
+  title = "Mortgage Payment Calculator UK | AmortIQ",
+  description = "Calculate estimated monthly mortgage repayments, total interest and overpayment savings with our free UK mortgage payment calculator.",
+  keywords = "mortgage payment calculator, mortgage repayment calculator UK, monthly mortgage payments, mortgage overpayment calculator",
   canonical,
-  ogImage = "https://amortiq.co.uk/og-image.jpg"
+  ogImage = "/og-image.jpg"
 }: SEOHeadProps) => {
   const location = useLocation();
-  const fullUrl = canonical || `https://amortiq.co.uk${location.pathname}`;
+  const fullUrl = canonical || `${window.location.origin}${location.pathname}`;
 
   useEffect(() => {
     // Update document title
@@ -42,10 +42,10 @@ const SEOHead = ({
     updateMetaTag('og:title', title, true);
     updateMetaTag('og:description', description, true);
     updateMetaTag('og:url', fullUrl, true);
-    updateMetaTag('og:image', ogImage, true);
+    updateMetaTag('og:image', new URL(ogImage, window.location.origin).href, true);
     updateMetaTag('twitter:title', title);
     updateMetaTag('twitter:description', description);
-    updateMetaTag('twitter:image', ogImage);
+    updateMetaTag('twitter:image', new URL(ogImage, window.location.origin).href);
 
     // Update canonical link
     let canonicalLink = document.querySelector('link[rel="canonical"]') as HTMLLinkElement;

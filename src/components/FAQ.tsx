@@ -3,6 +3,18 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 const FAQ = () => {
   const faqs = [
     {
+      question: "How do I calculate my monthly mortgage payment?",
+      answer: "Enter the mortgage amount, annual interest rate and remaining repayment term. AmortIQ estimates the monthly capital-and-interest payment using a standard repayment mortgage formula."
+    },
+    {
+      question: "Does a longer mortgage term mean lower monthly payments?",
+      answer: "Usually yes. Spreading repayments over more months reduces the estimated monthly payment, but generally increases the total interest paid over the life of the mortgage."
+    },
+    {
+      question: "Does this calculator include mortgage fees or changing interest rates?",
+      answer: "You can enter a product fee and choose whether to add it to the mortgage balance. Estimates assume the interest rate stays constant; actual lender payments can differ if rates, fees or payment dates change."
+    },
+    {
       question: "How accurate are the mortgage calculations?",
       answer: "Our calculations use standard mortgage formulas and are highly accurate for planning purposes. However, always verify final figures with your lender as they may have specific terms or fees that affect your actual payments."
     },
