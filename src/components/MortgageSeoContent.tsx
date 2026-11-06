@@ -39,7 +39,7 @@ const MortgageSeoContent = () => {
             </p>
 
             <p>
-              Use the calculator above to compare different monthly
+              Use the mortgage overpayment calculator above to compare different monthly
               overpayment amounts and see how they could affect your
               estimated mortgage term and total interest.
             </p>
@@ -93,7 +93,8 @@ const MortgageSeoContent = () => {
             means there is less balance on which future mortgage
             interest can be calculated. However, whether overpaying is
             suitable for you depends on your mortgage terms, finances
-            and other priorities.
+            and other priorities. Use the mortgage calculator above to see how 
+            early payments can affect the amount of interest you pay.
           </p>
         </CardContent>
       </Card>

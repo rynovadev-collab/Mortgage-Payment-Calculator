@@ -83,7 +83,7 @@ const MortgageDashboard = () => {
       <div className="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
         <div>
           <h1 className="text-2xl font-bold tracking-tight md:text-4xl">
-            Mortgage Payment Calculator UK
+            Mortgage Payment Calculator
           </h1>
 
           <p className="mt-2 max-w-3xl text-sm text-muted-foreground md:text-base">

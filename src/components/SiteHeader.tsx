@@ -30,7 +30,7 @@ const SiteHeader = () => {
           </Link>
 
           <span className="hidden text-sm text-slate-600 md:inline">
-            Free UK mortgage calculator
+            Free mortgage calculator
           </span>
         </nav>
       </div>
